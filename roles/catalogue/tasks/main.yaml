@@ -1,0 +1,49 @@
+- name: app setup
+  tags:
+    - deployment
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: app-setup.yaml
+
+- name: nodejs setup
+  tags: 
+    - deployment
+  ansible.builtin.include_role:
+  #ansible.builtin.import_role:
+    name: common
+    tasks_from: nodejs-setup.yaml
+
+- name: systemd setup
+  ansible.builtin.import_role:
+    name: common
+    tasks_from: systemd-setup.yaml
+
+- name: copy mongo repo
+  ansible.builtin.copy:
+      src: mongo.repo
+      dest: /etc/yum.repos.d/mongo.repo
+      
+- name: install mongodb client
+  ansible.builtin.dnf:
+    name: mongodb-mongosh 
+    state: present
+
+- name: check products loaded   #load catalogue schema
+  ansible.builtin.command: mongosh --host "{{MONGODB_HOST}}" --quiet  --eval 'db.getMongo().getDBNames().indexOf("catalogue")'
+  register: catalogue_output
+
+
+- name: load the products 
+  ansible.builtin.shell: mongosh --host "{{MONGODB_HOST}}" --quiet  < /app/db/master-data.js
+  when: catalogue_output.stdout | int < 0 
+  #if catalogue database is not present then only load the schema
+  #if std is positive then skipping the products loading, 
+  #if std is negative then loading the products
+
+- name: start and enable catalogue service
+  tags: 
+    - deployment
+  ansible.builtin.service:
+    name: catalogue   
+    state: restarted #restarted is to use because if the service is not running then it will start the service and if the service is already running then it will restart the service
+    enabled: yes

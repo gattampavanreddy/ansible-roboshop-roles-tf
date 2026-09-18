@@ -1,0 +1,13 @@
+- name: enable nodejs 20   #ansible dnf module does not have option to enable nodejs 20 module, so we are using command module to enable nodejs 20 module
+  ansible.builtin.command: dnf module enable nodejs:20 -y
+
+- name: install nodejs
+  ansible.builtin.dnf:
+    name: nodejs
+    state: present
+
+- name: install dependencies
+  tags:
+    - deployment
+  community.general.npm:
+    path: /app
