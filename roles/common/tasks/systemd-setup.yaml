@@ -2,8 +2,9 @@
   ansible.builtin.copy:
     src: "{{ component }}.service.j2"
     dest: "/etc/systemd/system/{{ component }}.service"
-  notify: restart "{{ component }}" service
+  notify: restart "{{ component }}" 
 
 - name: reload systemd
   ansible.builtin.systemd_service:
     daemon_reload: yes
+
