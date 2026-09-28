@@ -11,3 +11,4 @@ SHIPPING_HOST: shipping-"{{ env }}".pavanreddy.online
 RABBITMQ_HOST: rabbitmq-"{{ env }}".pavanreddy.online
 PAYMENT_HOST: payment-"{{ env }}".pavanreddy.online
 FRONTEND_HOST: frontend-"{{ env }}".pavanreddy.online
+app_version: v3
