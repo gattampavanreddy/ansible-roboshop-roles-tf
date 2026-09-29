@@ -1,14 +1,12 @@
-ansible_user:  ec2-user
-ansible_password:  DevOps@321
-
-MONGODB_HOST:  mongodb-"{{ env }}".pavanreddy.online
-CATALOGUE_HOST:  catalogue-"{{ env }}".pavanreddy.online
-REDIS_HOST: redis-"{{ env }}".pavanreddy.online
-USER_HOST: user-"{{ env }}".pavanreddy.online
-CART_HOST: cart-"{{ env }}".pavanreddy.online
-MYSQL_HOST: mysql-"{{ env }}".pavanreddy.online
-SHIPPING_HOST: shipping-"{{ env }}".pavanreddy.online
-RABBITMQ_HOST: rabbitmq-"{{ env }}".pavanreddy.online
-PAYMENT_HOST: payment-"{{ env }}".pavanreddy.online
-FRONTEND_HOST: frontend-"{{ env }}".pavanreddy.online
+ansible_user: ec2-user
+ansible_password: DevOps321
+MONGODB_HOST: mongodb-{{ env }}.pavanreddy.online
+REDIS_HOST: redis-{{ env }}.pavanreddy.online
+MYSQL_HOST: mysql-{{ env }}.pavanreddy.online
+RABBITMQ_HOST: rabbitmq-{{ env }}.pavanreddy.online
+CATALOGUE_HOST: catalogue.backend-alb-{{ env }}.pavanreddy.online
+USER_HOST: user.backend-alb-{{ env }}.pavanreddy.online
+CART_HOST: cart.backend-alb-{{ env }}.pavanreddy.online
+SHIPPING_HOST: shipping.backend-alb-{{ env }}.pavanreddy.online
+PAYMENT_HOST: payment.backend-alb-{{ env }}.pavanreddy.online
 app_version: v3
