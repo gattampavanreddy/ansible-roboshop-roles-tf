@@ -15,11 +15,11 @@
 
 - name: install python dependencies
   ansible.builtin.pip:
-      name: "{{ item }}"
-      executable: pip3.9
+    name: "{{ item }}"
+    executable: pip3.9
   loop:
-    -cryptography
-    -PyMySQL
+  - cryptography
+  - PyMySQL
 
 - name: import shipping data
   community.mysql.mysql_db:
@@ -27,15 +27,15 @@
     name: all
     login_host: "{{ MYSQL_HOST }}"
     login_user: root
-    login_password: "Roboshop@1"
+    login_password: RoboShop@1
     target: "{{ item }}"
   loop:
-    - app/db/schema.sql
-    - app/db/app-user.sql
-    - app/db/master-data.sql
+  - /app/db/schema.sql
+  - /app/db/app-user.sql 
+  - /app/db/master-data.sql
 
 - name: start and enable shipping
   ansible.builtin.service:
     name: shipping
-    enabled: yes
     state: restarted
+    enabled: yes
