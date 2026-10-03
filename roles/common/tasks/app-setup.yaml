@@ -25,7 +25,7 @@
 
 - name: Download {{ component }} code #ansible download file from s3 bucket using get_url module
   ansible.builtin.get_url:
-      url: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}- {{ app_version }}.zip
+      url: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-{{ app_version }}.zip
       dest: /tmp/{{ component }}.zip
 
 - name: unzip the {{ component }} code  #ansible unzip the {{ component }} code using unarchive module
